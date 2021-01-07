@@ -5,7 +5,7 @@ import cv2
 from tensorflow.keras.models import load_model
 
 #Loading the facenet model
-embeding_model=load_model("Facenet_model.h5")
+embedding_model=load_model("Facenet_model.h5")
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -51,7 +51,7 @@ def l2_normalize(x, axis=-1, epsilon=1e-10):
 for name in images:
     img=images[name]
     img=np.reshape(img,(1,160,160,3))
-    emb=embeding_model.predict(img)
+    emb=embedding_model.predict(img)
     images[name]=l2_normalize(emb)
 
 def predict_name(img):
@@ -60,7 +60,7 @@ def predict_name(img):
     img=np.resize(img,(1,160,160,3))
     img=prewhiten(img)
 
-    emb=embeding_model.predict(img)
+    emb=embedding_model.predict(img)
     emb_norm=l2_normalize(emb)
 
     minimum_dis=9999
